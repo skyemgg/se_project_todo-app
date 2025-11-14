@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
-import { initialTodos, validationConfig } from "../utils/constants.js"
-import Todo from ("../components/Todo");
-import FormValidator from '../components/FormValidator';
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+import { initialTodos, validationConfig } from "../utils/constants.js";
+import Todo from "../components/Todo.js";
+import FormValidator from "../components/FormValidator.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
@@ -19,7 +19,8 @@ const closeModal = (modal) => {
 
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
-const todo = new Todo(data, "#todo-template"); return todo.getView();
+  const todo = new Todo(data, "#todo-template");
+  return todo.getView();
   //const todoElement = Todo.getView();
 
   return todoElement;
@@ -44,20 +45,19 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   const id = uuidv4();
 
-const values = { name, date, id };
-renderTodo(values);
-closeModal(addTodoPopup);
-
-
-initialTodos.forEach((item) => {
-  renderTodo(item);
-  const todo = generateTodo(item, values);
-  todosList.append(todo);
-
-  todosList.append(todo);
+  const values = { name, date, id };
+  renderTodo(values);
   closeModal(addTodoPopup);
-});
+
+  initialTodos.forEach((item) => {
+    renderTodo(item);
+    const todo = generateTodo(item, values);
+    todosList.append(todo);
+
+    todosList.append(todo);
+    closeModal(addTodoPopup);
+  });
 });
 
-const newFormValidator = new FormValidator( validationConfig, addTodoForm );
-new newFormValidator.enableValidation();
+const newFormValidator = new FormValidator();
+newFormValidator._enableValidation(); // ✅ call method, not construct
