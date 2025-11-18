@@ -59,5 +59,5 @@ addTodoForm.addEventListener("submit", (evt) => {
   });
 });
 
-const newFormValidator = new FormValidator();
-newFormValidator._enableValidation(); // ✅ call method, not construct
+const validator = new FormValidator(validationConfig, addTodoForm);
+validator.enableValidation();
