@@ -9,11 +9,12 @@ class Todo {
   _setEventListeners() {
     this._todoCheckboxEl.addEventListener("change", () => {
       this._data.completed = !this._data.completed;
+      const increment = this._data.completed ? 1 : -1;
+      this._handleCheck(increment);
     });
 
     this._todoDeleteBtn.addEventListener("click", () => {
-      this._handleDeleted(this._completed);
-      this._handleCheck(completed);
+      this._handleDeleted(this._data.completed);
       this._todoElement.remove();
     });
   }
